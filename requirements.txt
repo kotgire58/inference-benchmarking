@@ -1,3 +1,13 @@
+torch
+transformers
+accelerate
+numpy
+pandas
+matplotlib
+tqdm
+pyyaml
+psutil
+scikit-learn
 altair
 pandas
 streamlit

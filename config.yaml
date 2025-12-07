@@ -1,0 +1,24 @@
+model_name: "Qwen/Qwen2.5-1.5B-Instruct"
+device: "cuda"
+
+benchmarks:
+  - name: "baseline"
+    optimizations: []
+
+  - name: "kv_cache"
+    optimizations: ["kv_cache"]
+
+  - name: "speculative"
+    optimizations: ["speculative_decoding"]
+
+  - name: "batching"
+    optimizations: ["batching"]
+
+prompt: "Explain quantum computing in simple words."
+
+max_new_tokens: 100
+num_runs: 5
+batch_size: 4
+
+ui:
+  enabled: true
