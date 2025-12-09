@@ -5,8 +5,14 @@ benchmarks:
   - name: "baseline"
     optimizations: []
 
-  - name: "kv_cache"
-    optimizations: ["kv_cache"]
+  - name: small_kv
+    optimizations: ["kv_cache_small"]
+
+  - name: optimal_kv
+    optimizations: ["kv_cache_optimal"]
+
+  - name: large_kv
+    optimizations: ["kv_cache_large"]
 
   - name: "speculative"
     optimizations: ["speculative_decoding"]

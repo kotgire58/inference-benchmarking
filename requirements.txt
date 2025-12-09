@@ -1,12 +1,29 @@
+# Core LLM + Transformers
 torch
 transformers
 accelerate
+sentencepiece
+tiktoken
+
+# Streamlit + UI
+streamlit
+streamlit_autorefresh
+
+# Metrics + System Stats
+psutil
+GPUtil
+
+# Utilities
 numpy
 pandas
-matplotlib
-tqdm
 pyyaml
-psutil
+tqdm
+
+# Plotting / Visualizations
+matplotlib
+seaborn
+
+# (Optional but recommended)
 scikit-learn
 altair
 pandas
