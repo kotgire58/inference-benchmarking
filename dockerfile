@@ -29,4 +29,4 @@ ENV STREAMLIT_SERVER_ENABLE_CORS=false
 ENV STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION=false
 
 # ENTRY POINT — THIS RUNS YOUR Intro.py
-CMD ["streamlit", "run", "streamlit_app/Intro.py", "--server.port=7860", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "streamlit_app/Intro.py", "--server.port=$PORT", "--server.address=0.0.0.0"]
