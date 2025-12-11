@@ -10,14 +10,12 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 COPY requirements.txt /app/
-
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app/
 
-# Streamlit HF settings
 ENV STREAMLIT_SERVER_ENABLE_CORS=false
 ENV STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION=false
 
-# Use HF-required PORT env variable
-CMD ["sh", "-c", "streamlit run streamlit_app/Intro.py --server.port=$PORT --server.address=0.0.0.0"]
+# Hugging Face passes $PORT automatically
+CMD sh -c "streamlit run streamlit_app/Intro.py --server.port=\$PORT --server.address=0.0.0.0"
