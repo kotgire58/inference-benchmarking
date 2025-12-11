@@ -1,3 +1,15 @@
+---
+title: "Inference Benchmarking Suite"
+emoji: "⚡"
+colorFrom: "blue"
+colorTo: "purple"
+sdk: "streamlit"
+sdk_version: "1.35.0"
+app_file: "streamlit_app/Intro.py"
+pinned: false
+---
+
+
 🚀 Inference Benchmarking Suite (Streamlit Edition)
 
 A modular, educational benchmarking toolkit designed to teach and demonstrate modern LLM inference optimizations — including batching, KV-cache reuse, speculative decoding, vLLM acceleration, and real-time chatbot comparisons — with a clean Streamlit UI.
