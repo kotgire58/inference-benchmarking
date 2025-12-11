@@ -1,21 +1,32 @@
+FROM python:3.10-slim
 
-FROM python:3.13.5-slim
+# Prevent Python from writing .pyc files
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-WORKDIR /app
-
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt ./
-COPY src/ ./src/
+# Set working directory
+WORKDIR /app
 
-RUN pip3 install -r requirements.txt
+# Copy requirements first (for caching)
+COPY requirements.txt /app/
 
-EXPOSE 8501
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+# Copy entire project
+COPY . /app/
 
-ENTRYPOINT ["streamlit", "run", "src/streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# Expose port used by Streamlit
+EXPOSE 7860
+
+# Streamlit needs these or it crashes on HF Spaces
+ENV STREAMLIT_SERVER_ENABLE_CORS=false
+ENV STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION=false
+
+# ENTRY POINT — THIS RUNS YOUR Intro.py
+CMD ["streamlit", "run", "streamlit_app/Intro.py", "--server.port=7860", "--server.address=0.0.0.0"]
