@@ -26,31 +26,6 @@ This project is structured for hands-on exploration, making it ideal for learnin
 
 🤖 Real-time user experience
 
-📁 Project Structure
-INFERENCE-BENCHMARKING/
-│
-├── benchmarks/                 # Core benchmarking utilities
-│── models/                     # Model loading & backend wrappers
-│── optimizations/              # Optional custom optimization modules
-│
-├── streamlit_app/              # Main Streamlit application
-│   ├── Intro.py                # Home page (entry screen)
-│   ├── config.toml             # Streamlit multipage configuration
-│   └── pages/
-│       ├── Batching.py         # Batching vs non-batching demo
-│       ├── ChatbotDemo.py      # Chat inference comparison
-│       ├── FinalBenchmark.py   # Unified benchmark runner
-│       ├── kv_cache.py         # KV-cache speedup visualization
-│       ├── SpeculativeDecoding.py # Draft model vs target model
-│       └── VLLM.py             # vLLM-specific benchmark page
-│
-├── utils/                      # Shared helpers for timing, logging, etc.
-│
-├── run_benchmark.py            # CLI runner for benchmarking
-├── requirements.txt
-├── Dockerfile
-└── README.md                   # (this file)
-
 🎯 What This App Teaches
 
 Each page inside the Streamlit UI focuses on one inference concept, showing both code and performance impact:
