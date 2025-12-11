@@ -17,5 +17,5 @@ COPY . /app/
 ENV STREAMLIT_SERVER_ENABLE_CORS=false
 ENV STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION=false
 
-# Hugging Face passes $PORT automatically
-CMD sh -c "streamlit run streamlit_app/Intro.py --server.port=\$PORT --server.address=0.0.0.0"
+# Use exec form to properly handle environment variables
+CMD ["sh", "-c", "streamlit run streamlit_app/Intro.py --server.port=${PORT:-7860} --server.address=0.0.0.0"]
