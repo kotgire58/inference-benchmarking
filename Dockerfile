@@ -1,45 +1,35 @@
 FROM python:3.10-slim
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
 
-COPY requirements.txt /app/
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy and install requirements
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /app/
+# Copy the entire project
+COPY . .
 
-# Streamlit config for Hugging Face Spaces
-ENV STREAMLIT_SERVER_HEADLESS=true
-ENV STREAMLIT_SERVER_ENABLE_CORS=false
-ENV STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION=false
-ENV STREAMLIT_SERVER_FILE_WATCHER_TYPE=none
-ENV STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
+# Set Python path to include the app directory
+ENV PYTHONPATH=/app:$PYTHONPATH
 
-# Create config file
-RUN mkdir -p ~/.streamlit
-RUN echo '[server]\n\
-headless = true\n\
-enableCORS = false\n\
-enableXsrfProtection = false\n\
-port = 7860\n\
-address = "0.0.0.0"\n\
-\n\
-[browser]\n\
-gatherUsageStats = false\n\
-\n\
-[theme]\n\
-base = "light"' > ~/.streamlit/config.toml
+# Streamlit specific env vars for Hugging Face Spaces
+ENV STREAMLIT_SERVER_HEADLESS=true \
+    STREAMLIT_SERVER_FILE_WATCHER_TYPE=none \
+    STREAMLIT_BROWSER_GATHER_USAGE_STATS=false \
+    STREAMLIT_THEME_BASE=light
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=30s --start-period=30s --retries=3 \
-  CMD curl -f http://localhost:7860/_stcore/health || exit 1
+# Expose the port
+EXPOSE 7860
 
-# Use the PORT environment variable with a fallback
-CMD ["sh", "-c", "streamlit run streamlit_app/Intro.py --server.port=${PORT:-7860} --server.address=0.0.0.0 --server.headless=true"]
+# Run the app
+CMD ["streamlit", "run", "streamlit_app/Intro.py", \
+     "--server.port=7860", \
+     "--server.address=0.0.0.0", \
+     "--server.headless=true", \
+     "--server.fileWatcherType=none", \
+     "--browser.gatherUsageStats=false"]

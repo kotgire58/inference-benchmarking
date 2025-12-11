@@ -2,20 +2,16 @@
 headless = true
 enableCORS = false
 enableXsrfProtection = false
-port = 7860
-address = "0.0.0.0"
 fileWatcherType = "none"
 
 [browser]
 gatherUsageStats = false
-serverAddress = "0.0.0.0"
-serverPort = 7860
 
 [logger]
 level = "error"
 
+[runner]
+fastReruns = false
+
 [client]
 showErrorDetails = false
-
-[theme]
-base = "light"
